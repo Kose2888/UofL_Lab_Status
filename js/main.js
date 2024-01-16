@@ -6,6 +6,7 @@ const outputElement2 = document.getElementById('output2');
 let test, testMachineName, testMachineHealth;
 
 // Make a GET request
+/*
 fetch(apiUrl)
     .then(response => {
         if (!response.ok) {
@@ -26,3 +27,48 @@ fetch(apiUrl)
     .catch(error => {
         console.error('Error:', error);
     });
+*/
+    // Defining async function
+async function getapi(url) {
+   
+    // Storing response
+    const response = await fetch(url);
+   
+    // Storing data in form of JSON
+    var data = await response.json();
+    console.log(data);
+    if (response) {
+        hideloader();
+    }
+    // Refresh the page after a delay of 5 minutes
+    setTimeout(function () {
+        location.reload();
+    }, 50000);
+
+    show(data);
+}
+// Calling that async function
+getapi(apiUrl);
+ 
+// Function to hide the loader
+function hideloader() {
+    document.getElementById('loading').style.display = 'none';
+}
+// Function to define innerHTML for HTML table
+function show(data) {
+    let tab = 
+        `<tr>
+          <th>MachineName</th>
+          <th>Health</th>
+         </tr>`;
+   
+    // Loop to access all rows 
+    for (let r of data.data.activeTargets) {
+        tab += `<tr> 
+    <td>${r.discoveredLabels.__address__} </td>
+    <td>${r.health}</td>
+</tr>`;
+    }
+    // Setting innerHTML as tab variable
+    document.getElementById("employees").innerHTML = tab;
+}

@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="js/main.js" type="module"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UofL Lab Status</title>
 </head>
 <body>
     <h1>Testing</h1>
-    <p id="output"></p>
-    <p id="output1"></p>
-    <p id="output2"></p>
-    <script src="js/main.js" type="module"></script>
+        <!-- Here a loader is created which 
+             loads till response comes -->
+             <div class="d-flex justify-content-center">
+                <div class="spinner-border"
+                     role="status" id="loading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <h1>Lab Machines</h1>
+            <!-- table for showing data -->
+            <table id="employees"></table>
 </body>
 </html>
