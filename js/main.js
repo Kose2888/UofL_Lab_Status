@@ -16,7 +16,7 @@ fetch(apiUrl)
     })
     .then(json => {
         console.log(json);
-        //outputElement.textContent = JSON.stringify(json, null, 2);
+      //outputElement.textContent = JSON.stringify(json, null, 2);
         test = json.data.activeTargets[0];
         testMachineName = test.discoveredLabels.__address__;
         testMachineHealth = test.health;
@@ -27,48 +27,52 @@ fetch(apiUrl)
     .catch(error => {
         console.error('Error:', error);
     });
-*/
-    // Defining async function
+    */
+// Defining async function
 async function getapi(url) {
-   
-    // Storing response
-    const response = await fetch(url);
-   
-    // Storing data in form of JSON
-    var data = await response.json();
-    console.log(data);
-    if (response) {
-        hideloader();
-    }
-    // Refresh the page after a delay of 5 minutes
-    setTimeout(function () {
-        location.reload();
-    }, 50000);
 
-    show(data);
+  // Storing response
+  const response = await fetch(url);
+
+  // Storing data in form of JSON
+  var data = await response.json();
+  console.log(data);
+  if (response) {
+    hideloader();
+  }
+  // Refresh the page after a delay of 5 minutes
+  setTimeout(function () {
+    location.reload();
+  }, 300000);
+
+  show(data);
 }
 // Calling that async function
 getapi(apiUrl);
- 
+
 // Function to hide the loader
 function hideloader() {
-    document.getElementById('loading').style.display = 'none';
+  document.getElementById('loading').style.display = 'none';
 }
 // Function to define innerHTML for HTML table
 function show(data) {
-    let tab = 
-        `<tr>
+  let tab =
+    `<tr>
           <th>MachineName</th>
           <th>Health</th>
          </tr>`;
-   
-    // Loop to access all rows 
-    for (let r of data.data.activeTargets) {
-        tab += `<tr> 
-    <td>${r.discoveredLabels.__address__} </td>
+
+  // Loop to access all rows
+  for (let r of data.data.activeTargets) {
+    let address = r.discoveredLabels.__address__;
+    // Filter for only the lab machines
+    if(address[0] == '3' && address[1] == '6' && address[2] == '2') {
+      tab += `<tr>
+    <td>${address}</td>
     <td>${r.health}</td>
 </tr>`;
     }
-    // Setting innerHTML as tab variable
-    document.getElementById("employees").innerHTML = tab;
+  }
+  // Setting innerHTML as tab variable
+  document.getElementById("employees").innerHTML = tab;
 }
